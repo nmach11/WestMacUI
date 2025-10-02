@@ -1,0 +1,137 @@
+# This code is generated using PyUIbuilder: https://pyuibuilder.com
+
+import os
+import tkinter as tk
+from tkinter import ttk
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+main = tk.Tk()
+main.title("WestMac Clothing")
+main.config(bg="#ffffff")
+main.geometry("1410x671")
+
+
+style = ttk.Style(main)
+style.theme_use("clam")
+
+# cart logic
+
+UserCart = {}
+
+def add_to_cart(item_name, price):
+    if item_name in UserCart:
+        UserCart[item_name]["quantity"] += 1
+    else:
+        UserCart[item_name] = {"quantity": 1, "price": price}
+    update_cart_display()
+
+def update_cart_display():
+    text.config(state="normal")
+    text.delete("1.0", tk.END)
+
+    total = 0
+    for item, data in UserCart.items():
+        quantity = data["quantity"]
+        price = data["price"]
+        item_total = quantity * price
+        total += item_total
+        text.insert(tk.END, f"{item} ({quantity}) - ${item_total}\n")
+
+    text.insert(tk.END, f"\nTotal: ${total}")
+    text.config(state="disabled")
+
+
+# UI
+
+style.configure("brandname.TLabel", background="#ffffff", foreground="#000", borderwidth=2, relief=tk.FLAT, font=("TkHeadingFont", 21, "bold"), anchor="center")
+brandname = ttk.Label(master=main, text="W E S T M A C", style="brandname.TLabel")
+brandname.configure(anchor="center")
+brandname.place(x=0, y=8, width=1379)
+
+# small red shirt
+
+frame = tk.Frame(master=main)
+frame.config(bg="#EDECEC")
+frame.place(x=63, y=130, width=172, height=275)
+
+style.configure("button.TButton", background="#ff7575", foreground="#ffffff", font=("TkHeadingFont", 13, "bold"))
+style.map("button.TButton", background=[("active", "#E4E2E2")], foreground=[("active", "#000")])
+
+button = ttk.Button(
+    master=main, text="Add to Cart", style="button.TButton",
+    command=lambda: add_to_cart("Small Red Shirt", 10)
+)
+button.place(x=64, y=476, width=172, height=40)
+
+style.configure("label.TLabel", background="#ffffff", foreground="#000000", relief=tk.FLAT, font=("TkHeadingFont", 13, "bold"), anchor="nw")
+label = ttk.Label(master=main, text="Small Red Shirt", style="label.TLabel")
+label.configure(anchor="nw")
+label.place(x=63, y=404)
+
+style.configure("label1.TLabel", background="#ffffff", foreground="#000", font=("TkHeadingFont", 13), anchor="nw")
+label1 = ttk.Label(master=main, text="$10.00", style="label1.TLabel")
+label1.configure(anchor="nw")
+label1.place(x=63, y=431)
+
+frame1 = tk.Frame(master=main)
+frame1.config(bg="#EDECEC")
+frame1.place(x=452, y=120, width=172, height=275)
+
+# medium blue shirt
+
+frame2 = tk.Frame(master=main)
+frame2.config(bg="#EDECEC")
+frame2.place(x=808, y=120, width=172, height=275)
+
+style.configure("label2.TLabel", background="#ffffff", foreground="#000000", relief=tk.FLAT, font=("TkHeadingFont", 13, "bold"), anchor="nw")
+label2 = ttk.Label(master=main, text="Medium Blue Shirt", style="label2.TLabel")
+label2.configure(anchor="nw")
+label2.place(x=452, y=395)
+
+style.configure("label3.TLabel", background="#ffffff", foreground="#000", font=("TkHeadingFont", 13), anchor="nw")
+label3 = ttk.Label(master=main, text="$20.00", style="label3.TLabel")
+label3.configure(anchor="nw")
+label3.place(x=452, y=423)
+
+style.configure("button1.TButton", background="#ff7575", foreground="#ffffff", font=("TkHeadingFont", 13, "bold"))
+style.map("button1.TButton", background=[("active", "#E4E2E2")], foreground=[("active", "#000")])
+
+button1 = ttk.Button(
+    master=main, text="Add to Cart", style="button1.TButton",
+    command=lambda: add_to_cart("Medium Blue Shirt", 20)
+)
+button1.place(x=452, y=475, width=172, height=40)
+
+style.configure("label4.TLabel", background="#ffffff", foreground="#000000", relief=tk.FLAT, font=("TkHeadingFont", 13, "bold"), anchor="nw")
+label4 = ttk.Label(master=main, text="Large Green Shirt", style="label4.TLabel")
+label4.configure(anchor="nw")
+label4.place(x=808, y=396)
+
+style.configure("label5.TLabel", background="#ffffff", foreground="#000", font=("TkHeadingFont", 13), anchor="nw")
+label5 = ttk.Label(master=main, text="$30.00", style="label5.TLabel")
+label5.configure(anchor="nw")
+label5.place(x=808, y=424)
+
+style.configure("button2.TButton", background="#ff7575", foreground="#ffffff", font=("TkHeadingFont", 13, "bold"))
+style.map("button2.TButton", background=[("active", "#E4E2E2")], foreground=[("active", "#000")])
+
+button2 = ttk.Button(
+    master=main, text="Add to Cart", style="button2.TButton",
+    command=lambda: add_to_cart("Large Green Shirt", 30)
+)
+button2.place(x=809, y=477, width=172, height=40)
+
+# cart
+
+text = tk.Text(master=main)
+text.config(bg="#edecec", fg="#000", relief=tk.FLAT)
+text.place(x=1139, y=175, width=223, height=343)
+
+style.configure("label6.TLabel", background="#ffffff", foreground="#000", relief=tk.FLAT, font=("TkHeadingFont", 13, "bold"), anchor="center")
+label6 = ttk.Label(master=main, text="Your Cart:", style="label6.TLabel")
+label6.configure(anchor="center")
+label6.place(x=1141, y=116, width=222, height=46)
+
+
+main.mainloop()
